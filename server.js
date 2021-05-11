@@ -36,9 +36,6 @@ app.post('/users', (req, res) => {
         if (err){
             return res.status(500)
             .json({ message: err })
-        } else if (user) {
-            return res.status(404)
-            .json({message: "User exists"})
         }
         else {
             return res.status(200)
@@ -53,17 +50,17 @@ app.get('/users', (req, res) => {
             return res.status(500)
             .json({message: err})
         } else {
-            return res.status.json(200)
-            ,json({users})
+            return res.status(200)
+            .json({users})
         }
     })
 })
 
 app.get('/users/:id', (req, res) => {
-    User.findOne(req.params.id, (err, user) => {
+    User.findById(req.params.id, (err, user) => {
         if (err) {
             return res.status(500)
-            .json({message: err})
+            .json({ message: err })
         }
         else if (!user) {
             return res.status(404)
@@ -71,7 +68,7 @@ app.get('/users/:id', (req, res) => {
         }
         else {
             return res.status(200)
-            .json({user})
+            .json({ user })
         }
     })
 })
@@ -102,7 +99,7 @@ app.put('/users/:id', (req,res) => {
 })
 
 app.delete('/users/:id', (req,res) => {
-    User.findByIdAndDelete(req,params.id, (err, user) => {
+    User.findByIdAndDelete(req.params.id, (err, user) => {
         if (err) {
             return res.status(500)
             .json({ message: err })
